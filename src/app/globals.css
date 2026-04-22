@@ -1,4 +1,10 @@
 @import "tailwindcss";
+@import url("https://api.fontshare.com/v2/css?f[]=archivo@400,500,600,700&display=swap");
+
+@theme {
+  --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
 
 :root {
   --background: #000000;
@@ -10,9 +16,41 @@ body {
   color: var(--foreground);
 }
 
+/* Subtle fade-in for newly mounted sections */
+@keyframes fadeInBlur {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeInBlur 500ms ease-out both;
+}
+
+/* NASDAQ-style horizontal scroll for TickerTape */
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.ticker-track {
+  animation: tickerScroll 60s linear infinite;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
 /* Wallet button (used by src/components/ui/CustomWalletButton.tsx) */
 .wallet-btn {
-  font-weight: bold;
+  font-weight: 600;
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
   background-color: #0d1a258a;

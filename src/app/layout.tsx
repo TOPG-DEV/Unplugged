@@ -1,14 +1,13 @@
 import { ProvidersWrapper } from "./ProviderWrapper";
 import "./globals.css";
 
-// Using system monospace stack via Tailwind's `font-mono` class.
-// Swap to `next/font/google` or `next/font/local` later if a specific
-// typeface is needed. The system stack is durable and network-free.
+// Archivo font loaded via @import in globals.css from fontshare CDN.
+// Applied through --font-sans Tailwind theme token.
 
 export const metadata = {
-  title: "UNPLUGGED",
+  title: "UNPLUGGED // OPERATOR",
   description:
-    "The operator's channel. Signed calls. Smart-wallet tracking. Tools before the crowd.",
+    "The operator's terminal. On-chain tools. Signed calls. No sockpuppets.",
 };
 
 export default function RootLayout({
@@ -18,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-mono antialiased bg-black text-white">
+      <body className="font-sans antialiased bg-black text-white">
         <ProvidersWrapper>{children}</ProvidersWrapper>
       </body>
     </html>

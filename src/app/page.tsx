@@ -5,53 +5,64 @@ import Wire from "@/components/Wire";
 import Tracker from "@/components/Tracker";
 import Trending from "@/components/Trending";
 import { FuelBadge } from "@/components/FuelBadge";
+import { TickerTape } from "@/components/TickerTape";
+import { HeroAscii } from "@/components/HeroAscii";
+import { AdminNav } from "@/components/AdminNav";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-white font-mono flex flex-col items-center justify-start px-6 py-20">
-      <div className="w-full max-w-3xl">
-        <header className="mb-16">
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight">UNPLUGGED</h1>
-          <p className="mt-4 text-sm uppercase tracking-[0.3em] text-[#7fd0ff]">
-            The operator&apos;s channel
-          </p>
-          <div className="mt-4">
-            <FuelBadge />
-          </div>
-        </header>
+    <>
+      <TickerTape />
+      <AdminNav />
+      <main className="min-h-screen bg-black text-white flex flex-col items-center justify-start px-6 pt-12 pb-20">
+        <div className="w-full max-w-3xl">
+          {/* Hero with cursor-follow ASCII background */}
+          <section className="relative rounded-2xl overflow-hidden mb-14 fade-in">
+            <HeroAscii />
+            <header className="relative z-10 px-6 py-16 md:py-20">
+              <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[0.95]">
+                UNPLUGGED
+              </h1>
+              <p className="mt-4 text-xs md:text-sm uppercase tracking-[0.35em] text-[#7fd0ff]">
+                The operator&apos;s terminal
+              </p>
+              <div className="mt-5">
+                <FuelBadge />
+              </div>
+              <p className="mt-8 text-base md:text-lg leading-snug text-gray-200 max-w-xl">
+                On-chain tools. Signed calls. No sockpuppets.
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-gray-400 max-w-xl">
+                Track the move before the crowd. Read the wire, scan the mints, buy in one click. Connect a wallet to step inside.
+              </p>
+            </header>
+          </section>
 
-        <section className="mb-12">
-          <p className="text-lg md:text-xl leading-relaxed text-gray-200 max-w-2xl">
-            UNPLUGGED is the private terminal for operators who read the market
-            before the market reads them. Signed calls. Smart-wallet tracking.
-            Tools that show the move before the crowd. Connect a wallet to step inside.
-          </p>
-        </section>
+          <section className="mb-10 fade-in" style={{ animationDelay: "100ms" }}>
+            <CustomWalletButton />
+          </section>
 
-        <section className="mb-12">
-          <CustomWalletButton />
-        </section>
+          <section className="grid gap-4 md:grid-cols-2 mb-10 fade-in" style={{ animationDelay: "200ms" }}>
+            <Wire />
+            <Tracker />
+          </section>
 
-        <section className="grid gap-4 md:grid-cols-2 mb-12">
-          <Wire />
-          <Tracker />
-        </section>
+          <section className="mb-14 fade-in" style={{ animationDelay: "300ms" }}>
+            <Trending />
+          </section>
 
-        <section className="mb-12">
-          <Trending />
-        </section>
-
-        <footer className="mt-24 pt-6 border-t border-[#1e4465] text-xs text-gray-500 space-y-2">
-          <p>
-            For community engagement and experimentation. Not financial advice.
-            Participation is voluntary and no profit is promised or implied.
-          </p>
-          <p>
-            Token-gated tooling. No monetary return guaranteed. By connecting a
-            wallet you acknowledge and accept these terms.
-          </p>
-        </footer>
-      </div>
-    </main>
+          <footer className="mt-24 pt-6 border-t border-[#1e4465] text-xs text-gray-500 space-y-2">
+            <p>
+              For community engagement and experimentation. Not financial advice.
+              Participation is voluntary and no profit is promised or implied.
+            </p>
+            <p>
+              Token-gated tooling. No monetary return guaranteed. By connecting a
+              wallet you acknowledge and accept these terms.
+            </p>
+          </footer>
+        </div>
+      </main>
+    </>
   );
 }
