@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import url("https://api.fontshare.com/v2/css?f[]=archivo@400,500,600,700,800,900&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=archivo@100,101,200,201,300,301,400,401,500,501,600,601,700,701,800,801,900,901&display=swap");
 
 @theme {
   --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
@@ -8,87 +8,88 @@
 
 :root {
   --background: #000000;
-  --foreground: #ededed;
+  --foreground: #ffffff;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Subtle fade-in for newly mounted sections */
+/* Fade-in on section mount */
 @keyframes fadeInBlur {
-  from {
-    opacity: 0;
-    filter: blur(4px);
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0);
-    transform: translateY(0);
-  }
+  from { opacity: 0; filter: blur(4px); transform: translateY(4px); }
+  to   { opacity: 1; filter: blur(0);    transform: translateY(0); }
 }
-
-.fade-in {
-  animation: fadeInBlur 500ms ease-out both;
-}
+.fade-in { animation: fadeInBlur 500ms ease-out both; }
 
 /* NASDAQ-style horizontal scroll for TickerTape */
 @keyframes tickerScroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+.ticker-track { animation: tickerScroll 60s linear infinite; }
+.ticker-track:hover { animation-play-state: paused; }
 
-.ticker-track {
-  animation: tickerScroll 60s linear infinite;
-}
+/* =========================
+   CINEMATIC INTRO
+   Bold, minimal, B&W. Sharp flicker, not mushy blur.
+   ========================= */
 
-.ticker-track:hover {
-  animation-play-state: paused;
-}
-
-/* Cinematic intro — UNPLUGGED wordmark fades in with blur, holds, flickers, fades out */
 @keyframes introWordmark {
-  0%   { opacity: 0; filter: blur(48px) brightness(0.2); transform: scale(1.12); letter-spacing: 0.08em; }
-  22%  { opacity: 1; filter: blur(0) brightness(1.1); transform: scale(1); letter-spacing: 0; }
-  45%  { opacity: 1; filter: blur(0) brightness(1); }
-  50%  { opacity: 0.18; filter: blur(1px) brightness(0.6); }
-  54%  { opacity: 1; filter: blur(0) brightness(1.2); }
-  58%  { opacity: 0.35; filter: blur(0.5px); }
-  62%  { opacity: 1; filter: blur(0) brightness(1); }
-  66%  { opacity: 0.55; }
-  70%  { opacity: 1; }
-  82%  { opacity: 1; filter: blur(0); transform: scale(1); }
-  100% { opacity: 0; filter: blur(12px) brightness(0.4); transform: scale(0.92); }
+  0%   { opacity: 0; filter: blur(60px); transform: scale(1.18); letter-spacing: 0.18em; }
+  18%  { opacity: 1; filter: blur(0);    transform: scale(1);    letter-spacing: -0.04em; }
+  /* hard hold */
+  40%  { opacity: 1; filter: blur(0); }
+  /* flicker 1 — sharp off / sharp on */
+  42%  { opacity: 0;    filter: blur(0); }
+  43%  { opacity: 1;    filter: blur(0); }
+  /* flicker 2 */
+  48%  { opacity: 0.1;  filter: blur(0); }
+  49%  { opacity: 1;    filter: blur(0); }
+  /* flicker 3 — tiny horizontal dropout */
+  54%  { opacity: 0;    filter: blur(0); transform: scale(1) translateX(-2px); }
+  55%  { opacity: 1;    filter: blur(0); transform: scale(1) translateX(0); }
+  /* hold */
+  72%  { opacity: 1;    filter: blur(0); transform: scale(1); }
+  /* exit */
+  100% { opacity: 0;    filter: blur(16px); transform: scale(0.9); }
 }
 
 @keyframes introBackdrop {
-  0%, 78%  { opacity: 1; }
-  100%     { opacity: 0; }
+  0%, 80% { opacity: 1; }
+  100%    { opacity: 0; }
 }
 
-@keyframes introGrid {
-  0%   { opacity: 0; }
-  40%  { opacity: 0.25; }
-  80%  { opacity: 0.1; }
-  100% { opacity: 0; }
+@keyframes introScanline {
+  0%   { transform: translateY(-10%); }
+  100% { transform: translateY(110%); }
 }
 
-.intro-backdrop {
-  animation: introBackdrop 3800ms ease-in forwards;
+@keyframes introNoise {
+  0%, 100% { opacity: 0.08; }
+  50%      { opacity: 0.14; }
 }
 
-.intro-wordmark {
-  animation: introWordmark 3800ms ease-in-out forwards;
+.intro-backdrop { animation: introBackdrop 4200ms steps(60, end) forwards; }
+.intro-wordmark { animation: introWordmark 4200ms cubic-bezier(.2,.7,.2,1) forwards; }
+.intro-scanline { animation: introScanline 3800ms linear forwards; }
+.intro-noise    { animation: introNoise 250ms steps(4, end) infinite; }
+
+/* =========================
+   AMBIENT ASCII BACKGROUND
+   Two-layer static + twinkle. No cursor lightbulb.
+   ========================= */
+
+@keyframes asciiTwinkle {
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 0.08; }
 }
 
-.intro-grid {
-  animation: introGrid 3800ms ease-in-out forwards;
-}
-
-/* Wallet button (used by src/components/ui/CustomWalletButton.tsx) */
+/* Wallet button (CustomWalletButton.tsx) */
 .wallet-btn {
   font-weight: 600;
   padding: 0.5rem 1rem;
@@ -99,8 +100,4 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
-.wallet-btn:hover {
-  background-color: #d0291d;
-  color: black;
-}
+.wallet-btn:hover { background-color: #d0291d; color: black; }
