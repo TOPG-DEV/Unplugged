@@ -21,23 +21,28 @@ export function AdminNav() {
   return (
     <nav
       aria-label="Admin"
-      className="fixed top-3 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1 border border-[#1e4465] bg-[#060e15f0] backdrop-blur-md rounded-full px-2 py-1 shadow-xl"
+      // Sits below the ticker tape (~38px) and above all content
+      className="fixed top-12 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1 border border-white/15 bg-black/85 backdrop-blur-md rounded-full px-2 py-1 shadow-2xl"
     >
-      <span className="text-[9px] uppercase tracking-[0.2em] text-[#d0291d] font-bold px-2">
+      <span
+        className="text-[9px] uppercase tracking-[0.3em] text-[#d0291d] px-2"
+        style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 700 }}
+      >
         ADMIN
       </span>
-      <span className="text-gray-600">│</span>
+      <span className="text-white/20">│</span>
       {NAV.map((item) => {
         const active = item.href === pathname || (item.href !== "/" && pathname.startsWith(item.href));
         return (
           <Link
             key={item.href}
             href={item.href}
-            className={`text-[10px] uppercase tracking-wider font-semibold px-3 py-1 rounded-full transition-colors ${
+            className={`text-[10px] uppercase tracking-wider px-3 py-1 rounded-full transition-colors ${
               active
-                ? "text-[#7fd0ff] bg-[#0b1b2a]"
-                : "text-gray-400 hover:text-[#7fd0ff] hover:bg-[#0b1b2a]"
+                ? "text-white bg-white/10"
+                : "text-white/60 hover:text-white hover:bg-white/5"
             }`}
+            style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 600 }}
           >
             {item.label}
           </Link>
