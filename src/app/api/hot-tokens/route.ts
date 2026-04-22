@@ -20,12 +20,15 @@ interface DexPair {
   priceChange?: { h1?: number; h24?: number };
   volume?: { h24?: number };
   liquidity?: { usd?: number };
+  marketCap?: number;
+  fdv?: number;
 }
 
 interface HotTokenRow {
   ticker: string;
   mint: string;
   price_usd: number | null;
+  mcap_usd: number | null;
   change_1h: number | null;
   change_24h: number | null;
   volume_24h_usd: number | null;
@@ -106,6 +109,7 @@ export async function GET() {
         ticker: pair.baseToken?.symbol ?? mint.slice(0, 4),
         mint,
         price_usd: pair.priceUsd ? parseFloat(pair.priceUsd) : null,
+        mcap_usd: pair.marketCap ?? pair.fdv ?? null,
         change_1h: pair.priceChange?.h1 != null ? pair.priceChange.h1 / 100 : null,
         change_24h: pair.priceChange?.h24 != null ? pair.priceChange.h24 / 100 : null,
         volume_24h_usd: pair.volume?.h24 ?? null,

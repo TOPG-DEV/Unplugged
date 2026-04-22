@@ -200,8 +200,9 @@ function DecoderResultCard({ result }: { result: DecoderResult }) {
         </span>
       </div>
 
-      {/* Data strip */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-white/10">
+      {/* Data strip — mcap-first per brand direction */}
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3 pt-3 border-t border-white/10">
+        <DataCell label="mcap" value={formatUsdCompact(result.token.mcap_usd)} />
         <DataCell label="liquidity" value={formatUsdCompact(result.token.liquidity_usd)} />
         <DataCell label="24h vol" value={formatUsdCompact(result.token.volume_24h_usd)} />
         <DataCell

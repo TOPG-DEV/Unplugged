@@ -114,9 +114,46 @@ export default function Home() {
             </div>
           </section>
 
+          {/* ====================== WHAT'S NEXT ========================= */}
+          <section className="mb-20 md:mb-24 fade-in" style={{ animationDelay: "520ms" }}>
+            <SectionLabel index="04">next drops</SectionLabel>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="relative overflow-hidden border border-white/10 rounded-2xl bg-black/40 p-6 md:p-8">
+                <div className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-3" style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 600 }}>
+                  coming soon · the radar
+                </div>
+                <div className="text-2xl md:text-3xl text-white leading-tight mb-3" style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 800, letterSpacing: "-0.02em" }}>
+                  Trench Radar
+                </div>
+                <p className="text-sm text-white/55 leading-relaxed" style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 400 }}>
+                  Live during peak trench hours (14:00–04:00 UTC). Ranks the mints smart money is actively accumulating right now. One AI line per row: conviction, entry context, time left to play.
+                </p>
+                <div className="mt-4 inline-flex items-center gap-2 text-[10px] uppercase text-white/40 tracking-[0.3em]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white/30 animate-pulse" />
+                  cold · opens 14:00 utc
+                </div>
+              </div>
+              <div className="relative overflow-hidden border border-white/10 rounded-2xl bg-black/40 p-6 md:p-8">
+                <div className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-3" style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 600 }}>
+                  coming soon · the journal
+                </div>
+                <div className="text-2xl md:text-3xl text-white leading-tight mb-3" style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 800, letterSpacing: "-0.02em" }}>
+                  AI Journal
+                </div>
+                <p className="text-sm text-white/55 leading-relaxed" style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 400 }}>
+                  Every Decoder verdict logged + auto-scored 1h / 6h / 24h later. Public win rate. No hand-waving — the AI carries its own receipts.
+                </p>
+                <div className="mt-4 inline-flex items-center gap-2 text-[10px] uppercase text-white/40 tracking-[0.3em]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white/30" />
+                  0 verdicts logged · counting soon
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* ====================== TRENDING ============================ */}
-          <section className="mb-24 md:mb-32 fade-in" style={{ animationDelay: "520ms" }}>
-            <SectionLabel index="04">trending — filtered</SectionLabel>
+          <section className="mb-24 md:mb-32 fade-in" style={{ animationDelay: "620ms" }}>
+            <SectionLabel index="05">trending — filtered</SectionLabel>
             <p
               className="text-sm md:text-base text-white/60 max-w-2xl mb-6"
               style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 400 }}

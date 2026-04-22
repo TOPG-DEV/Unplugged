@@ -21,6 +21,7 @@ interface HotTokenRow {
   ticker: string;
   mint: string;
   price_usd: number | null;
+  mcap_usd: number | null;
   change_1h: number | null;
   change_24h: number | null;
   volume_24h_usd: number | null;
@@ -123,7 +124,8 @@ export function TickerTape() {
     cells.push({
       kind: "ticker",
       ticker: r.ticker,
-      price: formatUsdCompact(r.price_usd),
+      // Mcap-first per brand direction; price as last-resort fallback only
+      price: formatUsdCompact(r.mcap_usd ?? r.price_usd),
       change: r.change_24h ?? r.change_1h,
     });
     if ((i + 1) % 3 === 0) {
