@@ -6,7 +6,6 @@ import Tracker from "@/components/Tracker";
 import Trending from "@/components/Trending";
 import { FuelBadge } from "@/components/FuelBadge";
 import { TickerTape } from "@/components/TickerTape";
-import { PageAscii } from "@/components/PageAscii";
 import { AdminNav } from "@/components/AdminNav";
 import { UnpluggedIntro } from "@/components/UnpluggedIntro";
 
@@ -14,14 +13,13 @@ export default function Home() {
   return (
     <>
       <UnpluggedIntro />
-      <PageAscii />
       <TickerTape />
       <AdminNav />
       <main className="relative z-10 min-h-screen text-white flex flex-col items-center justify-start px-4 sm:px-6 pt-10 pb-20">
         <div className="w-full max-w-5xl">
-          {/* Hero — black slab backdrop keeps wordmark crisp over the page-wide ASCII */}
+          {/* Hero */}
           <section
-            className="relative rounded-2xl overflow-hidden mb-10 md:mb-14 fade-in border border-white/5 bg-black/55 backdrop-blur-sm"
+            className="relative rounded-2xl overflow-hidden mb-10 md:mb-14 fade-in border border-white/5"
             style={{ animationDelay: "120ms" }}
           >
             <header className="relative z-10 px-4 sm:px-6 md:px-10 pt-10 md:pt-14 pb-8 md:pb-12">
