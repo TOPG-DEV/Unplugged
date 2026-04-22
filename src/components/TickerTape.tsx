@@ -6,18 +6,28 @@ import { formatUsdCompact, formatPctSigned } from "@/lib/format";
 
 const POLL_MS = 60_000;
 
-// Placeholder rows rendered before first /api/trending response so the
-// marquee never looks empty on cold page load.
-const PLACEHOLDER: Pick<TrendingRow, "ticker" | "pct_change_1h">[] = [
-  { ticker: "$SOL", pct_change_1h: null },
-  { ticker: "$BONK", pct_change_1h: null },
-  { ticker: "$WIF", pct_change_1h: null },
-  { ticker: "$PEPE", pct_change_1h: null },
-  { ticker: "$MOG", pct_change_1h: null },
-  { ticker: "$TRUMP", pct_change_1h: null },
+// Manifesto lines shown when there's no live trending data + interleaved
+// between real ticker cells when data exists. On-brand filler beats empty "—".
+const MANIFESTO = [
+  "UNPLUGGED // PROTOCOL",
+  "STEP OUT OF THE CIRCLE",
+  "NO SOCKPUPPETS",
+  "CARELESS · EMOTIONLESS · STILL PLAYING",
+  "REAL FLOW OVER NOISE",
+  "OPERATORS ONLY",
+  "SIGNED CALLS OR SILENCE",
+  "TUNE OUT THE MAINSTREAM",
 ];
 
-function Cell({ ticker, price, change }: { ticker: string; price: string; change: number | null }) {
+interface Item {
+  kind: "ticker" | "manifesto";
+  ticker?: string;
+  price?: string;
+  change?: number | null;
+  line?: string;
+}
+
+function TickerCell({ ticker, price, change }: { ticker: string; price: string; change: number | null }) {
   const tone =
     change == null || change === 0
       ? "text-gray-400"
@@ -25,12 +35,22 @@ function Cell({ ticker, price, change }: { ticker: string; price: string; change
         ? "text-emerald-400"
         : "text-red-400";
   return (
-    <span className="inline-flex items-center gap-2 px-4 py-1 whitespace-nowrap border-r border-[#1e4465]/40">
-      <span className="text-[11px] font-mono text-white">{ticker}</span>
+    <span className="inline-flex items-center gap-2 px-4 py-1.5 whitespace-nowrap border-r border-[#1e4465]/40">
+      <span className="text-[11px] font-mono text-white tracking-tight">{ticker}</span>
       <span className="text-[11px] font-mono text-gray-400">{price}</span>
       {change != null && (
         <span className={`text-[11px] font-mono ${tone}`}>{formatPctSigned(change)}</span>
       )}
+    </span>
+  );
+}
+
+function ManifestoCell({ line }: { line: string }) {
+  return (
+    <span className="inline-flex items-center gap-2 px-6 py-1.5 whitespace-nowrap border-r border-[#1e4465]/40">
+      <span className="text-[10px] text-[#7fd0ff]/70 uppercase tracking-[0.25em] font-semibold">
+        {line}
+      </span>
     </span>
   );
 }
@@ -58,26 +78,45 @@ export function TickerTape() {
     };
   }, []);
 
-  const items =
-    rows.length > 0
-      ? rows.map((r) => ({
-          ticker: r.ticker,
-          price: formatUsdCompact(r.mcap_usd ?? r.price_usd),
-          change: r.pct_change_1h,
-        }))
-      : PLACEHOLDER.map((p) => ({ ticker: p.ticker, price: "—", change: null }));
+  // Build the display sequence:
+  // - When trending data exists: interleave a manifesto line every 3 tickers
+  // - When empty: just rotate through manifesto lines
+  const items: Item[] = [];
+  if (rows.length > 0) {
+    rows.forEach((r, i) => {
+      items.push({
+        kind: "ticker",
+        ticker: r.ticker,
+        price: formatUsdCompact(r.mcap_usd ?? r.price_usd),
+        change: r.pct_change_1h,
+      });
+      if ((i + 1) % 3 === 0) {
+        items.push({ kind: "manifesto", line: MANIFESTO[i % MANIFESTO.length] });
+      }
+    });
+  } else {
+    MANIFESTO.forEach((line) => items.push({ kind: "manifesto", line }));
+  }
 
-  // Duplicate list so the CSS `translateX(-50%)` keyframe creates a seamless loop.
   const loop = [...items, ...items];
 
   return (
     <div className="border-b border-[#1e4465] bg-[#05080c]/90 backdrop-blur-md overflow-hidden relative">
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black to-transparent z-10" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black to-transparent z-10" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black to-transparent z-10" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black to-transparent z-10" />
       <div className="ticker-track flex w-max">
-        {loop.map((it, i) => (
-          <Cell key={`${it.ticker}-${i}`} ticker={it.ticker} price={it.price} change={it.change} />
-        ))}
+        {loop.map((it, i) =>
+          it.kind === "ticker" ? (
+            <TickerCell
+              key={`t-${it.ticker}-${i}`}
+              ticker={it.ticker!}
+              price={it.price!}
+              change={it.change ?? null}
+            />
+          ) : (
+            <ManifestoCell key={`m-${it.line}-${i}`} line={it.line!} />
+          )
+        )}
       </div>
     </div>
   );

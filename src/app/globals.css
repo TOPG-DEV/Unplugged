@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import url("https://api.fontshare.com/v2/css?f[]=archivo@400,500,600,700&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=archivo@400,500,600,700,800,900&display=swap");
 
 @theme {
   --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
@@ -14,6 +14,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: "Archivo", ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Subtle fade-in for newly mounted sections */
@@ -46,6 +47,45 @@ body {
 
 .ticker-track:hover {
   animation-play-state: paused;
+}
+
+/* Cinematic intro — UNPLUGGED wordmark fades in with blur, holds, flickers, fades out */
+@keyframes introWordmark {
+  0%   { opacity: 0; filter: blur(48px) brightness(0.2); transform: scale(1.12); letter-spacing: 0.08em; }
+  22%  { opacity: 1; filter: blur(0) brightness(1.1); transform: scale(1); letter-spacing: 0; }
+  45%  { opacity: 1; filter: blur(0) brightness(1); }
+  50%  { opacity: 0.18; filter: blur(1px) brightness(0.6); }
+  54%  { opacity: 1; filter: blur(0) brightness(1.2); }
+  58%  { opacity: 0.35; filter: blur(0.5px); }
+  62%  { opacity: 1; filter: blur(0) brightness(1); }
+  66%  { opacity: 0.55; }
+  70%  { opacity: 1; }
+  82%  { opacity: 1; filter: blur(0); transform: scale(1); }
+  100% { opacity: 0; filter: blur(12px) brightness(0.4); transform: scale(0.92); }
+}
+
+@keyframes introBackdrop {
+  0%, 78%  { opacity: 1; }
+  100%     { opacity: 0; }
+}
+
+@keyframes introGrid {
+  0%   { opacity: 0; }
+  40%  { opacity: 0.25; }
+  80%  { opacity: 0.1; }
+  100% { opacity: 0; }
+}
+
+.intro-backdrop {
+  animation: introBackdrop 3800ms ease-in forwards;
+}
+
+.intro-wordmark {
+  animation: introWordmark 3800ms ease-in-out forwards;
+}
+
+.intro-grid {
+  animation: introGrid 3800ms ease-in-out forwards;
 }
 
 /* Wallet button (used by src/components/ui/CustomWalletButton.tsx) */
