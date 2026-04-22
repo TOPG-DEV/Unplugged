@@ -8,92 +8,114 @@ import { FuelBadge } from "@/components/FuelBadge";
 import { TickerTape } from "@/components/TickerTape";
 import { AdminNav } from "@/components/AdminNav";
 import { UnpluggedIntro } from "@/components/UnpluggedIntro";
+import { DotGrid } from "@/components/DotGrid";
+
+// Tiny section-label primitive. nextjs.org pattern — small uppercase
+// label with a leading 2-digit index sets up each surface.
+function SectionLabel({ index, children }: { index: string; children: React.ReactNode }) {
+  return (
+    <div
+      className="mb-4 flex items-center gap-3 text-[10px] md:text-[11px] uppercase text-white/50"
+      style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 600, letterSpacing: "0.28em" }}
+    >
+      <span className="font-mono text-white/30">{index}</span>
+      <span className="h-px w-8 bg-white/15" />
+      <span>{children}</span>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
     <>
       <UnpluggedIntro />
+      <DotGrid />
       <TickerTape />
       <AdminNav />
-      <main className="relative z-10 min-h-screen text-white flex flex-col items-center justify-start px-4 sm:px-6 pt-10 pb-20">
+      <main className="relative z-10 min-h-screen text-white flex flex-col items-center justify-start px-4 sm:px-6 pt-16 md:pt-24 pb-20">
         <div className="w-full max-w-5xl">
-          {/* Hero */}
+          {/* =========================== HERO =========================== */}
           <section
-            className="relative rounded-2xl overflow-hidden mb-10 md:mb-14 fade-in border border-white/5"
+            className="relative mb-20 md:mb-28 fade-in"
             style={{ animationDelay: "120ms" }}
           >
-            <header className="relative z-10 px-4 sm:px-6 md:px-10 pt-10 md:pt-14 pb-8 md:pb-12">
-              {/* Responsive wordmark — fits any viewport without overflow */}
-              <h1
-                className="text-white leading-[0.85] select-none whitespace-nowrap"
-                style={{
-                  fontFamily: "'Archivo', sans-serif",
-                  fontWeight: 900,
-                  fontSize: "clamp(2.5rem, 13vw, 10rem)",
-                  letterSpacing: "-0.045em",
-                }}
-              >
-                UNPLUGGED
-              </h1>
-              <p
-                className="mt-3 md:mt-4 text-[9px] sm:text-[10px] md:text-xs uppercase text-white/60"
-                style={{
-                  fontFamily: "'Archivo', sans-serif",
-                  fontWeight: 500,
-                  letterSpacing: "0.4em",
-                }}
-              >
-                a protocol, not a product
-              </p>
+            <div
+              className="mb-6 flex items-center gap-3 text-[10px] md:text-[11px] uppercase text-white/50"
+              style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 600, letterSpacing: "0.3em" }}
+            >
+              <span className="font-mono text-white/30">00</span>
+              <span className="h-px w-8 bg-white/15" />
+              <span>a protocol, not a product</span>
+            </div>
 
-              <div className="mt-6 md:mt-7">
-                <FuelBadge />
-              </div>
+            <h1
+              className="text-white leading-[0.85] select-none whitespace-nowrap"
+              style={{
+                fontFamily: "'Archivo', sans-serif",
+                fontWeight: 900,
+                fontSize: "clamp(2.5rem, 13vw, 10rem)",
+                letterSpacing: "-0.045em",
+              }}
+            >
+              UNPLUGGED
+            </h1>
 
-              <p
-                className="mt-8 md:mt-10 text-xl sm:text-2xl md:text-3xl leading-[1.05] text-white max-w-2xl"
-                style={{
-                  fontFamily: "'Archivo', sans-serif",
-                  fontWeight: 700,
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                Step out of the circle.
-              </p>
-              <p
-                className="mt-3 md:mt-4 text-sm md:text-base leading-relaxed text-white/55 max-w-xl"
-                style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 400 }}
-              >
-                Mainstream noise is engineered to keep you reacting. Unplugged is the terminal for the ones already out — signed calls, smart-wallet flow, one-click execution. Careless. Emotionless. Still playing.
-              </p>
-            </header>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <FuelBadge />
+            </div>
+
+            <p
+              className="mt-12 md:mt-16 text-2xl sm:text-3xl md:text-4xl leading-[1.05] text-white max-w-2xl"
+              style={{
+                fontFamily: "'Archivo', sans-serif",
+                fontWeight: 700,
+                letterSpacing: "-0.025em",
+              }}
+            >
+              Step out of the circle.
+            </p>
+            <p
+              className="mt-4 text-sm md:text-base leading-relaxed text-white/60 max-w-xl"
+              style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 400 }}
+            >
+              Mainstream noise is engineered to keep you reacting. Unplugged is the terminal for the ones already out — signed calls, smart-wallet flow, one-click execution. Careless. Emotionless. Still playing.
+            </p>
           </section>
 
-          <section className="mb-10 fade-in" style={{ animationDelay: "220ms" }}>
+          {/* ====================== CONNECT ============================= */}
+          <section className="mb-20 md:mb-24 fade-in" style={{ animationDelay: "220ms" }}>
+            <SectionLabel index="01">connect</SectionLabel>
             <CustomWalletButton />
           </section>
 
-          <section className="grid gap-4 md:grid-cols-2 mb-10 fade-in" style={{ animationDelay: "320ms" }}>
-            <Wire />
-            <Tracker />
+          {/* ====================== WIRE + TRACKER ====================== */}
+          <section className="mb-20 md:mb-24 fade-in" style={{ animationDelay: "320ms" }}>
+            <SectionLabel index="02">the wire &amp; the tracker</SectionLabel>
+            <div className="grid gap-4 md:grid-cols-2">
+              <Wire />
+              <Tracker />
+            </div>
           </section>
 
-          <section className="mb-14 fade-in" style={{ animationDelay: "420ms" }}>
+          {/* ====================== TRENDING ============================ */}
+          <section className="mb-24 md:mb-32 fade-in" style={{ animationDelay: "420ms" }}>
+            <SectionLabel index="03">trending now</SectionLabel>
             <Trending />
           </section>
 
-          <footer className="mt-20 md:mt-24 pt-6 border-t border-white/10 text-xs text-white/40 space-y-2">
+          {/* ====================== FOOTER ============================== */}
+          <footer className="mt-20 md:mt-32 pt-8 border-t border-white/10 text-xs text-white/40 space-y-3">
             <p
               className="uppercase text-[10px] text-white/60"
               style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 600, letterSpacing: "0.35em" }}
             >
               unplugged // protocol
             </p>
-            <p>
+            <p className="max-w-2xl">
               For community engagement and experimentation. Not financial advice.
               Participation is voluntary and no profit is promised or implied.
             </p>
-            <p>
+            <p className="max-w-2xl">
               Non-custodial tooling. Your wallet signs every trade. By connecting a
               wallet you acknowledge and accept these terms.
             </p>
