@@ -9,13 +9,12 @@ import { TickerTape } from "@/components/TickerTape";
 import { AdminNav } from "@/components/AdminNav";
 import { UnpluggedIntro } from "@/components/UnpluggedIntro";
 import { DotGrid } from "@/components/DotGrid";
+import { Decoder } from "@/components/Decoder";
 
-// Tiny section-label primitive. nextjs.org pattern — small uppercase
-// label with a leading 2-digit index sets up each surface.
 function SectionLabel({ index, children }: { index: string; children: React.ReactNode }) {
   return (
     <div
-      className="mb-4 flex items-center gap-3 text-[10px] md:text-[11px] uppercase text-white/50"
+      className="mb-5 flex items-center gap-3 text-[10px] md:text-[11px] uppercase text-white/50"
       style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 600, letterSpacing: "0.28em" }}
     >
       <span className="font-mono text-white/30">{index}</span>
@@ -36,7 +35,7 @@ export default function Home() {
         <div className="w-full max-w-5xl">
           {/* =========================== HERO =========================== */}
           <section
-            className="relative mb-20 md:mb-28 fade-in"
+            className="relative mb-16 md:mb-20 fade-in"
             style={{ animationDelay: "120ms" }}
           >
             <div
@@ -45,7 +44,7 @@ export default function Home() {
             >
               <span className="font-mono text-white/30">00</span>
               <span className="h-px w-8 bg-white/15" />
-              <span>a protocol, not a product</span>
+              <span>an AI that reads past the noise</span>
             </div>
 
             <h1
@@ -60,37 +59,55 @@ export default function Home() {
               UNPLUGGED
             </h1>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <FuelBadge />
-            </div>
-
             <p
-              className="mt-12 md:mt-16 text-2xl sm:text-3xl md:text-4xl leading-[1.05] text-white max-w-2xl"
+              className="mt-10 md:mt-14 text-2xl sm:text-3xl md:text-4xl leading-[1.03] text-white max-w-3xl"
               style={{
                 fontFamily: "'Archivo', sans-serif",
                 fontWeight: 700,
                 letterSpacing: "-0.025em",
               }}
             >
-              Step out of the circle.
+              The mainstream wants you reacting. Unplugged tells you what&apos;s real.
             </p>
             <p
-              className="mt-4 text-sm md:text-base leading-relaxed text-white/60 max-w-xl"
+              className="mt-4 text-sm md:text-base leading-relaxed text-white/60 max-w-2xl"
               style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 400 }}
             >
-              Mainstream noise is engineered to keep you reacting. Unplugged is the terminal for the ones already out — signed calls, smart-wallet flow, one-click execution. Careless. Emotionless. Still playing.
+              Paste any mint. We pull on-chain safety, smart-money flow, holder cohort, and narrative heat — then AI returns a verdict with evidence. Not another caller. Not another tracker. A filter.
             </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <FuelBadge />
+            </div>
+          </section>
+
+          {/* ====================== DECODER (hero feature) ============== */}
+          <section className="mb-20 md:mb-28 fade-in" style={{ animationDelay: "220ms" }}>
+            <SectionLabel index="01">decode any token</SectionLabel>
+            <Decoder />
           </section>
 
           {/* ====================== CONNECT ============================= */}
-          <section className="mb-20 md:mb-24 fade-in" style={{ animationDelay: "220ms" }}>
-            <SectionLabel index="01">connect</SectionLabel>
+          <section className="mb-20 md:mb-24 fade-in" style={{ animationDelay: "320ms" }}>
+            <SectionLabel index="02">connect</SectionLabel>
+            <p
+              className="text-sm md:text-base text-white/60 max-w-xl mb-5"
+              style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 400 }}
+            >
+              Non-custodial. Your wallet signs every trade. We never see your keys.
+            </p>
             <CustomWalletButton />
           </section>
 
-          {/* ====================== WIRE + TRACKER ====================== */}
-          <section className="mb-20 md:mb-24 fade-in" style={{ animationDelay: "320ms" }}>
-            <SectionLabel index="02">the wire &amp; the tracker</SectionLabel>
+          {/* ====================== SIGNAL + FLOW ======================= */}
+          <section className="mb-20 md:mb-24 fade-in" style={{ animationDelay: "420ms" }}>
+            <SectionLabel index="03">signal &amp; flow</SectionLabel>
+            <p
+              className="text-sm md:text-base text-white/60 max-w-2xl mb-6"
+              style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 400 }}
+            >
+              What KC is signing on-chain. What smart wallets are actually doing. No tweets, no shills, no affiliate links — just the tape.
+            </p>
             <div className="grid gap-4 md:grid-cols-2">
               <Wire />
               <Tracker />
@@ -98,8 +115,14 @@ export default function Home() {
           </section>
 
           {/* ====================== TRENDING ============================ */}
-          <section className="mb-24 md:mb-32 fade-in" style={{ animationDelay: "420ms" }}>
-            <SectionLabel index="03">trending now</SectionLabel>
+          <section className="mb-24 md:mb-32 fade-in" style={{ animationDelay: "520ms" }}>
+            <SectionLabel index="04">trending — filtered</SectionLabel>
+            <p
+              className="text-sm md:text-base text-white/60 max-w-2xl mb-6"
+              style={{ fontFamily: "'Archivo', sans-serif", fontWeight: 400 }}
+            >
+              Scored on volume acceleration + unique buyers + smart-money alignment. Not whatever Twitter is pumping today.
+            </p>
             <Trending />
           </section>
 
@@ -112,12 +135,10 @@ export default function Home() {
               unplugged // protocol
             </p>
             <p className="max-w-2xl">
-              For community engagement and experimentation. Not financial advice.
-              Participation is voluntary and no profit is promised or implied.
+              Experimental. Not financial advice. Decoder verdicts are AI-synthesized from public on-chain data and can be wrong. Confirm before you size.
             </p>
             <p className="max-w-2xl">
-              Non-custodial tooling. Your wallet signs every trade. By connecting a
-              wallet you acknowledge and accept these terms.
+              Non-custodial tooling. Your wallet signs every trade. By connecting a wallet you acknowledge and accept these terms.
             </p>
           </footer>
         </div>
